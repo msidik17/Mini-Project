@@ -39,8 +39,8 @@ func (repository *AdminRepositoryImpl) Create(admin *domain.Admin) (*domain.Admi
 
 }
 
-func (repository *AdminRepositoryImpl) Update(admin *domain.Admin, Id int) (*domain.Admin, error) {
-	result := repository.DB.Table("admin").Where("id = ?", Id).Updates(domain.Admin{Name: admin.Name, Email: admin.Email, Password: admin.Password})
+func (repository *AdminRepositoryImpl) Update(admin *domain.Admin, id int) (*domain.Admin, error) {
+	result := repository.DB.Table("admins").Where("id = ?", id).Updates(domain.Admin{Name: admin.Name, Email: admin.Email, Password: admin.Password})
 	if result.Error != nil {
 		return nil, result.Error
 	}

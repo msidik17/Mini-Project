@@ -18,7 +18,6 @@ type AdminService interface {
 	UpdateAdmin(srv echo.Context, request modelsrequest.AdminUpdate, id int) (*domain.Admin, error)
 	DeleteAdmin(srv echo.Context, id int) error
 	FindById(srv echo.Context, id int) (*domain.Admin, error)
-	FindByEmail(srv echo.Context, email string) (*domain.Admin, error)
 	FindAll(srv echo.Context) ([]domain.Admin, error)
 }
 
@@ -124,15 +123,6 @@ func (service *AdminServiceImpl) FindById(srv echo.Context, id int) (*domain.Adm
 	}
 
 	return existingAdmin, nil
-}
-
-func (service *AdminServiceImpl) FindByEmail(srv echo.Context, email string) (*domain.Admin, error) {
-	admin, _ := service.AdminRepository.FindByEmail(email)
-	if admin == nil {
-		return nil, fmt.Errorf("admin not found")
-	}
-
-	return admin, nil
 }
 
 func (service *AdminServiceImpl) FindAll(srv echo.Context) ([]domain.Admin, error) {

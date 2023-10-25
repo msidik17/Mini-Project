@@ -1,8 +1,8 @@
 package modelsresponse
 
 type AdminCreateResponse struct {
-	Name string `json:"name"`
-    Email string `json:"email"`
+	Email string `json:"email"`
+	Password string `json:"password"`
     Token string `json:"token"`
 }
 
@@ -15,6 +15,6 @@ type AdminReponse struct {
 
 type AdminLoginResponse struct {
     Name string `json:"name"`
-    Email string `json:"email"`
+	Email string `json:"email"`
     Token string `json:"token"`
 }

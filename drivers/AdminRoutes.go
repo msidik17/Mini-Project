@@ -26,7 +26,6 @@ func AdminRoutes(e *echo.Echo, db *gorm.DB, validate *validator.Validate) {
 
 	adminsGroup.GET("", adminHandler.GetAllAdminHandler)
 	adminsGroup.GET("/:id", adminHandler.GetAdminByIdHandler)
-	adminsGroup.GET("/:email", adminHandler.GetAdminByEmailHandler)
-	adminsGroup.POST("/:id", adminHandler.UpdateAdminHandler)
+	adminsGroup.PUT("/:id", adminHandler.UpdateAdminHandler)
 	adminsGroup.DELETE("/:id", adminHandler.DeleteAdminHandler)
 }

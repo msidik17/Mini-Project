@@ -9,7 +9,7 @@ import (
 )
 
 func GenerateAdminToken(adminLoginResponse *modelsresponse.AdminLoginResponse, id uint) (string, error) {
-	expireTime := time.Now().Add(time.Hour * 1).Unix()
+	expireTime := time.Now().Add(time.Hour * 24 * 7).Unix()
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
 	claims["id"] = id

@@ -20,7 +20,6 @@ type AdminHandler interface {
 	DeleteAdminHandler(srv echo.Context) error
 	GetAllAdminHandler(srv echo.Context) error
 	GetAdminByIdHandler(srv echo.Context) error
-	GetAdminByEmailHandler(srv echo.Context) error
 }
 
 type AdminHandlerImpl struct {
@@ -111,7 +110,7 @@ func (h *AdminHandlerImpl) UpdateAdminHandler(srv echo.Context) error {
 	}
 
 	response := res.AdminDomaintoAdminResponse(result)
-
+	fmt.Print(result)
 	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Updated Admin Data", response))
 }
 
@@ -168,21 +167,4 @@ func (h *AdminHandlerImpl) GetAdminByIdHandler(srv echo.Context) error {
 	response := res.AdminDomaintoAdminResponse(result)
 
 	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Get Admin Data", response))
-}
-
-func (h *AdminHandlerImpl) GetAdminByEmailHandler(srv echo.Context) error {
-	adminEmail := srv.Param("email")
-
-	result, err := h.AdminService.FindByEmail(srv, adminEmail)
-	if err != nil {
-		if strings.Contains(err.Error(), "admin not found") {
-			return srv.JSON(http.StatusNotFound, helper.ErrorResponse("Admin Not Found"))
-		}
-
-		return srv.JSON(http.StatusInternalServerError, helper.ErrorResponse("Get Admin Data By Email Error"))
-	}
-
-	response := res.AdminDomaintoAdminResponse(result)
-
-	return srv.JSON(http.StatusOK, helper.SuccessResponse("Successfully Get Admin Data By Email", response))
 }

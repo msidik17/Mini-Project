@@ -8,7 +8,7 @@ import (
 
 func AdminDomainToAdminLoginResponse(user *domain.Admin) modelsresponse.AdminLoginResponse {
 	return modelsresponse.AdminLoginResponse{
-		Name:  user.Name,
+		Name: user.Name,
 		Email: user.Email,
 	}
 }

@@ -1,17 +1,17 @@
 package modelsrequest
 
-type AdminCreate struct {
+type UserCreate struct {
 	Name     string `json:"name" form:"name" validate:"required,min=1,max=255"`
 	Email    string `json:"email" form:"email" validate:"required,min=1,max=255"`
 	Password string `json:"password" form:"password" validate:"required,min=1,max=255"`
 }
 
-type AdminLogin struct {
+type UserLogin struct {
 	Email    string `json:"email" form:"email" validate:"required,min=1,max=255"`
 	Password string `json:"password" form:"password" validate:"required,min=1,max=255"`
 }
 
-type AdminUpdate struct {
+type UserUpdate struct {
 	Name     string `json:"name" form:"name" validate:"required,min=1,max=255"`
 	Email    string `json:"email" form:"email" validate:"required,min=1,max=255"`
 	Password string `json:"password" form:"password" validate:"required,min=1,max=255"`

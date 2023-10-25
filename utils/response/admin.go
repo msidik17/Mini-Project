@@ -6,28 +6,28 @@ import (
 	"Mini-Project/models/schema"
 )
 
-func AdminDomainToAdminLoginResponse(user *domain.Admin) modelsresponse.AdminLoginResponse {
+func AdminDomainToAdminLoginResponse(admin *domain.Admin) modelsresponse.AdminLoginResponse {
 	return modelsresponse.AdminLoginResponse{
-		Name: user.Name,
-		Email: user.Email,
+		Name: admin.Name,
+		Email: admin.Email,
 	}
 }
 
-func AdminSchemaToAdminDomain(user *schema.Admin) *domain.Admin {
+func AdminSchemaToAdminDomain(admin *schema.Admin) *domain.Admin {
 	return &domain.Admin{
-		ID:       user.ID,
-		Name:     user.Name,
-		Email:    user.Email,
-		Password: user.Password,
+		ID:       admin.ID,
+		Name:     admin.Name,
+		Email:    admin.Email,
+		Password: admin.Password,
 	}
 }
 
-func AdminDomaintoAdminResponse(user *domain.Admin) modelsresponse.AdminReponse {
+func AdminDomaintoAdminResponse(admin *domain.Admin) modelsresponse.AdminReponse {
 	return modelsresponse.AdminReponse{
-		Id:       user.ID,
-		Name:     user.Name,
-		Email:    user.Email,
-		Password: user.Password,
+		Id:       admin.ID,
+		Name:     admin.Name,
+		Email:    admin.Email,
+		Password: admin.Password,
 	}
 }
 

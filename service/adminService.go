@@ -52,8 +52,6 @@ func (service *AdminServiceImpl) CreateAdmin(srv echo.Context, request modelsreq
 		return nil, fmt.Errorf("error when creating admin: %s", err.Error())
 	}
 
-	fmt.Println(result)
-
 	return result, nil
 
 }

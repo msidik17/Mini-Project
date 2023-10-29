@@ -57,16 +57,15 @@ func (repository *AdminRepositoryImpl) Delete(id int) error {
 
 func (repository *AdminRepositoryImpl) FindById(id int) (*domain.Admin, error) {
 	var admin domain.Admin
-	result := repository.DB.First(&admin, id)
-	if result.Error != nil {
-		return nil, result.Error
-	}
+	if err := repository.DB.Unscoped().Where("id = ? AND deleted_at IS NULL", id).First(&admin).Error; err != nil {
+        return nil, err
+    }
 	return &admin, nil
 }
 
 func (repository *AdminRepositoryImpl) FindByEmail(email string) (*domain.Admin, error) {
 	var admin domain.Admin
-	result := repository.DB.Where("email =?", email).First(&admin)
+	result := repository.DB.Where("email =? AND deleted_at IS NULL", email).First(&admin)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -74,12 +73,12 @@ func (repository *AdminRepositoryImpl) FindByEmail(email string) (*domain.Admin,
 }
 
 func (repository *AdminRepositoryImpl) FindAll() ([]domain.Admin, error) {
-	var admin []domain.Admin
+    var admin []domain.Admin
 
-	result := repository.DB.Find(&admin)
-	if result.Error != nil {
-		return nil, result.Error
-	}
+    if err := repository.DB.Where("deleted_at IS NULL").Find(&admin).Error; err != nil {
+        return nil, err
+    }
 
-	return admin, nil
+    return admin, nil
 }
+

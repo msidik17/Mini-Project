@@ -8,8 +8,8 @@ import (
 
 func UserDomainToUserLoginResponse(user *domain.User) modelsresponse.UserLoginResponse {
 	return modelsresponse.UserLoginResponse{
-		Name:  user.Name,
 		Email: user.Email,
+		Password: user.Password,
 	}
 }
 

@@ -57,10 +57,9 @@ func (repository *UserRepositoryImpl) Delete(id int) error {
 
 func (repository *UserRepositoryImpl) FindById(id int) (*domain.User, error) {
 	var user domain.User
-	result := repository.DB.First(&user, id)
-	if result.Error != nil {
-		return nil, result.Error
-	}
+	if err := repository.DB.Unscoped().Where("id = ? AND deleted_at IS NULL", id).First(&user).Error; err != nil {
+        return nil, err
+    }
 	return &user, nil
 }
 
@@ -79,10 +78,9 @@ func (repository *UserRepositoryImpl) FindByEmail(email string) (*domain.User, e
 func (repository *UserRepositoryImpl) FindAll() ([]domain.User, error) {
 	var user []domain.User
 
-	result := repository.DB.Find(&user)
-	if result.Error != nil {
-		return nil, result.Error
-	}
+	if err := repository.DB.Where("deleted_at IS NULL").Find(&user).Error; err != nil {
+        return nil, err
+    }
 
-	return user, nil
+    return user, nil
 }

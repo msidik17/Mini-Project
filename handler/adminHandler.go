@@ -14,12 +14,12 @@ import (
 )
 
 type AdminHandler interface {
-	RegisterAdminHandler(srv echo.Context) error
-	LoginAdminHandler(srv echo.Context) error
-	UpdateAdminHandler(srv echo.Context) error
-	DeleteAdminHandler(srv echo.Context) error
-	GetAllAdminHandler(srv echo.Context) error
-	GetAdminByIdHandler(srv echo.Context) error
+	RegisterAdminHandler(h echo.Context) error
+	LoginAdminHandler(h echo.Context) error
+	UpdateAdminHandler(h echo.Context) error
+	DeleteAdminHandler(h echo.Context) error
+	GetAllAdminHandler(h echo.Context) error
+	GetAdminByIdHandler(h echo.Context) error
 }
 
 type AdminHandlerImpl struct {
@@ -110,7 +110,6 @@ func (h *AdminHandlerImpl) UpdateAdminHandler(srv echo.Context) error {
 	}
 
 	response := res.AdminDomaintoAdminResponse(result)
-	fmt.Print(result)
 	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Updated Admin Data", response))
 }
 
@@ -168,3 +167,4 @@ func (h *AdminHandlerImpl) GetAdminByIdHandler(srv echo.Context) error {
 
 	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Get Admin Data", response))
 }
+

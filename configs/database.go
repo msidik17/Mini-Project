@@ -10,7 +10,6 @@ import (
 	"gorm.io/gorm"
 
 	"Mini-Project/models/schema"
-
 )
 
 var DB *gorm.DB
@@ -45,5 +44,5 @@ func ConnectDB() *gorm.DB {
 }
 
 func Migrate() {
-	DB.AutoMigrate(schema.Admin{}, schema.User{})
+	DB.AutoMigrate(schema.Admin{}, schema.User{}, schema.Movie{})
 }

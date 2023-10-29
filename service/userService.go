@@ -26,7 +26,7 @@ type UserServiceImpl struct {
 	Validate       *validator.Validate
 }
 
-func NewUserService(UserRepository repository.UserRepository, Validate *validator.Validate) *UserServiceImpl {
+func NewUserService(UserRepository repository.UserRepository, Validate *validator.Validate) UserService {
 	return &UserServiceImpl{
 		UserRepository: UserRepository,
 		Validate:        Validate,
@@ -90,11 +90,12 @@ func (service *UserServiceImpl) UpdateUser(srv echo.Context, request modelsreque
 	user := req.UserUpdateRequestToUserDomain(request)
 	user.Password = helper.HashPassword(user.Password)
 
-	result, err := service.UserRepository.Update(user, id)
+	_, err = service.UserRepository.Update(user, id)
 	if err != nil {
 		return nil, fmt.Errorf("error when updating user: %s", err.Error())
 	}
 
+	result, _ := service.UserRepository.FindById(id)
 	return result, nil
 }
 

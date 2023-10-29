@@ -14,12 +14,12 @@ import (
 )
 
 type UserHandler interface {
-	RegisterUserHandler(srv echo.Context) error
-	LoginUserHandler(srv echo.Context) error
-	UpdateUserHandler(srv echo.Context) error
-	DeleteUserHandler(srv echo.Context) error
-	GetAllUserHandler(srv echo.Context) error
-	GetUserByIdHandler(srv echo.Context) error
+	RegisterUserHandler(h echo.Context) error
+	LoginUserHandler(h echo.Context) error
+	UpdateUserHandler(h echo.Context) error
+	DeleteUserHandler(h echo.Context) error
+	GetAllUserHandler( echo.Context) error
+	GetUserByIdHandler(h echo.Context) error
 }
 
 type UserHandlerImpl struct {

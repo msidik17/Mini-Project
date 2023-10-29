@@ -26,7 +26,7 @@ type AdminServiceImpl struct {
 	Validate        *validator.Validate
 }
 
-func NewAdminService(AdminRepository repository.AdminRepository, Validate *validator.Validate) *AdminServiceImpl {
+func NewAdminService(AdminRepository repository.AdminRepository, Validate *validator.Validate) AdminService {
 	return &AdminServiceImpl{
 		AdminRepository: AdminRepository,
 		Validate:        Validate,
@@ -90,11 +90,11 @@ func (service *AdminServiceImpl) UpdateAdmin(srv echo.Context, request modelsreq
 	admin := req.AdminUpdateRequestToAdminDomain(request)
 	admin.Password = helper.HashPassword(admin.Password)
 
-	result, err := service.AdminRepository.Update(admin, id)
+	_ , err = service.AdminRepository.Update(admin, id)
 	if err != nil {
 		return nil, fmt.Errorf("error when updating admin: %s", err.Error())
 	}
-
+	result, _ := service.AdminRepository.FindById(id)
 	return result, nil
 }
 
@@ -125,9 +125,9 @@ func (service *AdminServiceImpl) FindById(srv echo.Context, id int) (*domain.Adm
 
 func (service *AdminServiceImpl) FindAll(srv echo.Context) ([]domain.Admin, error) {
 	admin, err := service.AdminRepository.FindAll()
-	if err != nil {
-		return nil, fmt.Errorf("admins not found")
-	}
+    if err != nil {
+        return nil, fmt.Errorf("admins not found")
+    }
 
-	return admin, nil
+    return admin, nil
 }

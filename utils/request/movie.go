@@ -11,6 +11,8 @@ func MovieDomaintoMovieSchema(movie domain.Movie) *schema.Movie {
 		ID:          movie.ID,
 		Title:       movie.Title,
 		Description: movie.Description,
+		Studio:      movie.Studio,
+		Price:       movie.Price,
 	}
 }
 
@@ -18,6 +20,8 @@ func MovieCreateRequestToMovieDomain(request *modelsrequest.CreateMovie) *domain
 	return &domain.Movie{
 		Title:       request.Title,
 		Description: request.Description,
+		Studio:      request.Studio,
+		Price:       request.Price,
 	}
 }
 
@@ -25,5 +29,7 @@ func MovieUpdateRequestToMovieDomain(request *modelsrequest.UpdateMovie) *domain
 	return &domain.Movie{
 		Title:       request.Title,
 		Description: request.Description,
+		Studio:      request.Studio,
+		Price:       request.Price,
 	}
 }

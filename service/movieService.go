@@ -16,7 +16,7 @@ type MovieService interface {
 	AddMovie(srv echo.Context, request modelsrequest.CreateMovie) (*domain.Movie, error)
 	FindAll(srv echo.Context) ([]domain.Movie, error)
 	FindMovieByID(srv echo.Context, id int) (*domain.Movie, error)
-	FindByTitle(ctx echo.Context, title string) (*domain.Movie, error)
+	FindByTitle(ctx echo.Context, title string) ([]domain.Movie, error)
 	UpdateMovie(srv echo.Context, request modelsrequest.UpdateMovie, id int) (*domain.Movie, error)
 	DeleteMovie(srv echo.Context, id int) error
 }
@@ -66,7 +66,7 @@ func (service *MovieServiceImpl) FindMovieByID(srv echo.Context, id int) (*domai
 	return movie, nil
 }
 
-func (service *MovieServiceImpl) FindByTitle(srv echo.Context, title string) (*domain.Movie, error) {
+func (service *MovieServiceImpl) FindByTitle(srv echo.Context, title string) ([]domain.Movie, error) {
 	movie, _ := service.MovieRepository.FindByTitle(title)
 	if movie == nil {
 		return nil, fmt.Errorf("movie not found")
@@ -90,7 +90,7 @@ func (service *MovieServiceImpl) UpdateMovie(srv echo.Context, request modelsreq
 
 	_ , err = service.MovieRepository.Update(movie, id)
 	if err != nil {
-		return nil, fmt.Errorf("error adding movie: %s", err.Error())
+		return nil, fmt.Errorf("error updating movie: %s", err.Error())
 	}
 
 	result, _ := service.MovieRepository.FindByID(id)
@@ -100,8 +100,8 @@ func (service *MovieServiceImpl) UpdateMovie(srv echo.Context, request modelsreq
 
 func (service *MovieServiceImpl) DeleteMovie(srv echo.Context, id int) error {
 
-	existingAdmin, _ := service.MovieRepository.FindByID(id)
-	if existingAdmin == nil {
+	existingMovie, _ := service.MovieRepository.FindByID(id)
+	if existingMovie == nil {
 		return fmt.Errorf("movie not found")
 	}
 

@@ -1,19 +1,25 @@
 package modelsresponse
 
 type MovieResponse struct {
-    ID          uint    `json:"id" form:"id"`
-    Title       string  `json:"title" form:"title"`
-    Description string `json:"description" form:"description"`
+	ID          uint    `json:"id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Studio      string  `json:"studio"`
+	Price       float64 `json:"price"`
 }
 
 type CreateMovieResponse struct {
-    ID          uint    `json:"id" form:"id"`
-    Title       string  `json:"title" form:"title"`
-    Description string `json:"description" form:"description"`
+	ID          uint    `json:"id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Studio      string  `json:"studio"`
+	Price       float64 `json:"price"`
 }
 
 type UpdateMovieResponse struct {
-    ID          uint    `json:"id" form:"id"`
-    Title       string  `json:"title" form:"title"`
-    Description string `json:"description" form:"description"`
+	ID          uint    `json:"id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Studio      string  `json:"studio"`
+	Price       float64 `json:"price"`
 }

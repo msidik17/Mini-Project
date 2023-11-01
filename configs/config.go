@@ -44,5 +44,5 @@ func ConnectDB() *gorm.DB {
 }
 
 func Migrate() {
-	DB.AutoMigrate(schema.Admin{}, schema.User{}, schema.Movie{})
+	DB.AutoMigrate(schema.Admin{}, schema.User{}, schema.Movie{}, schema.Order{})
 }

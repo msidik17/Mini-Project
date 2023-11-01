@@ -11,6 +11,8 @@ func MovieToMovieResponse(movie *domain.Movie) modelsresponse.MovieResponse {
 		ID:          movie.ID,
 		Title:       movie.Title,
 		Description: movie.Description,
+		Studio:      movie.Studio,
+		Price:       movie.Price,
 	}
 }
 
@@ -19,6 +21,8 @@ func CreateMovieToMovieResponse(movie *domain.Movie) modelsresponse.CreateMovieR
 		ID:          movie.ID,
 		Title:       movie.Title,
 		Description: movie.Description,
+		Studio:      movie.Studio,
+		Price:       movie.Price,
 	}
 }
 
@@ -27,6 +31,8 @@ func UpdateMovieToMovieResponse(movie *domain.Movie) modelsresponse.UpdateMovieR
 		ID:          movie.ID,
 		Title:       movie.Title,
 		Description: movie.Description,
+		Studio:      movie.Studio,
+		Price:       movie.Price,
 	}
 }
 
@@ -35,9 +41,10 @@ func MovieSchematoMovieDomain(movie *schema.Movie) *domain.Movie {
 		ID:          movie.ID,
 		Title:       movie.Title,
 		Description: movie.Description,
+		Studio:      movie.Studio,
+		Price:       movie.Price,
 	}
 }
-
 
 func ConvertMovieResponse(movies []domain.Movie) []modelsresponse.MovieResponse {
 	var results []modelsresponse.MovieResponse
@@ -46,6 +53,8 @@ func ConvertMovieResponse(movies []domain.Movie) []modelsresponse.MovieResponse 
 			ID:          movie.ID,
 			Title:       movie.Title,
 			Description: movie.Description,
+			Studio:      movie.Studio,
+			Price:       movie.Price,
 		}
 		results = append(results, movieResponse)
 	}

@@ -15,7 +15,7 @@ type MovieRepository interface {
 	Delete(id int) error
 	FindAll() ([]domain.Movie, error)
 	FindByID(id int) (*domain.Movie, error)
-	FindByTitle(title string) (*domain.Movie, error)
+	FindByTitle(title string) ([]domain.Movie, error)
 }
 
 type MovieRepositoryImpl struct {
@@ -39,7 +39,7 @@ func (repository *MovieRepositoryImpl) AddMovie(movie *domain.Movie) (*domain.Mo
 }
 
 func (repository *MovieRepositoryImpl) Update(movie *domain.Movie, id int) (*domain.Movie, error) {
-	result := repository.DB.Table("Movies").Where("id = ?", id).Updates(domain.Movie{Title: movie.Title, Description: movie.Description})
+	result := repository.DB.Table("Movies").Where("id = ?", id).Updates(domain.Movie{Title: movie.Title, Description: movie.Description, Studio: movie.Studio, Price: movie.Price})
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -55,13 +55,13 @@ func (repository *MovieRepositoryImpl) Delete(id int) error {
 }
 
 func (repository *MovieRepositoryImpl) FindAll() ([]domain.Movie, error) {
-	var Movie []domain.Movie
+	var movie []domain.Movie
 
-	if err := repository.DB.Where("deleted_at IS NULL").Find(&Movie).Error; err != nil {
+	if err := repository.DB.Where("deleted_at IS NULL").Find(&movie).Error; err != nil {
 		return nil, err
 	}
 
-	return Movie, nil
+	return movie, nil
 }
 
 func (repository *MovieRepositoryImpl) FindByID(id int) (*domain.Movie, error) {
@@ -72,11 +72,11 @@ func (repository *MovieRepositoryImpl) FindByID(id int) (*domain.Movie, error) {
 	return &movie, nil
 }
 
-func (repository *MovieRepositoryImpl) FindByTitle(title string) (*domain.Movie, error) {
-	var movie domain.Movie
-	result := repository.DB.Unscoped().Where("title =? AND deleted_at IS NULL", title).First(&movie)
+func (repository *MovieRepositoryImpl) FindByTitle(title string) ([]domain.Movie, error) {
+	var movie []domain.Movie
+	result := repository.DB.Unscoped().Where("title =? AND deleted_at IS NULL", title).Find(&movie)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return &movie, nil
+	return movie, nil
 }

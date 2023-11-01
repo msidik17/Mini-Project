@@ -22,6 +22,7 @@ func main() {
 	routes.AdminRoutes(app, DB, validate)
 	routes.UserRoutes(app, DB, validate)
 	routes.MovieRoutes(app, DB, validate)
+	routes.OrderRoutes(app, DB, validate)
 
 	app.Pre(middleware.RemoveTrailingSlash())
 	app.Use(middleware.CORS())

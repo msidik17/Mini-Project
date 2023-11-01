@@ -100,7 +100,7 @@ func (h *MovieHandlerImpl) FindMovieByTitle(srv echo.Context) error {
 		return srv.JSON(http.StatusInternalServerError, helper.ErrorResponse("Find Movie Data By Title Error"))
 	}
 
-	response := res.MovieToMovieResponse(result)
+	response := res.ConvertMovieResponse(result)
 
 	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Find Movie Data", response))
 }
@@ -124,15 +124,15 @@ func (h *MovieHandlerImpl) UpdateMovie(srv echo.Context) error {
 			return srv.JSON(http.StatusBadRequest, helper.ErrorResponse("Invalid Validation"))
 		}
 
-		if strings.Contains(err.Error(), "admin not found") {
-			return srv.JSON(http.StatusNotFound, helper.ErrorResponse("Admin Not Found"))
+		if strings.Contains(err.Error(), "movie not found") {
+			return srv.JSON(http.StatusNotFound, helper.ErrorResponse("Movie Not Found"))
 		}
 
-		return srv.JSON(http.StatusInternalServerError, helper.ErrorResponse("Update Admin Error"))
+		return srv.JSON(http.StatusInternalServerError, helper.ErrorResponse("Update Movie Error"))
 	}
 
 	response := res.UpdateMovieToMovieResponse(result)
-	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Updated Admin Data", response))
+	return srv.JSON(http.StatusCreated, helper.SuccessResponse("Successfully Updated Movie Data", response))
 }
 
 func (h *MovieHandlerImpl) DeleteMovie(srv echo.Context) error {
